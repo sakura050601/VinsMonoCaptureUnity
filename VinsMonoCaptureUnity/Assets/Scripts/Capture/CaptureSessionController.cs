@@ -11,7 +11,7 @@ namespace VinsMonoCapture.Capture
     public class CaptureSessionController : MonoBehaviour
     {
         [SerializeField] private string sessionName = "default_session";
-        [SerializeField] private bool useEditorMockBridge = true;
+        [SerializeField] private bool useEditorMockBridge = false;
         [SerializeField] private double imuUpdateIntervalSeconds = 0.005;
 
         private ICameraCaptureBridge cameraBridge = null!;
@@ -39,6 +39,7 @@ namespace VinsMonoCapture.Capture
             sessionFolderManager = new SessionFolderManager();
             fileExportService = new FileExportService(new CsvWriterService(), new JsonWriterService());
 
+#if UNITY_EDITOR
             if (useEditorMockBridge)
             {
                 var mockBridge = gameObject.AddComponent<EditorMockCaptureBridge>();
@@ -51,6 +52,11 @@ namespace VinsMonoCapture.Capture
                 cameraBridge = iosBridge;
                 imuBridge = iosBridge;
             }
+#else
+            var iosBridge = new IosCaptureBridge();
+            cameraBridge = iosBridge;
+            imuBridge = iosBridge;
+#endif
 
             cameraBridge.FrameReceived += OnFrameReceived;
             cameraBridge.IntrinsicsReceived += OnIntrinsicsReceived;

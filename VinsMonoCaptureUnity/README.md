@@ -34,10 +34,14 @@ This creates one sample exported session under `SampleOutput/`.
 
 ## Unity Setup Notes
 1. Open project in Unity 2022.3 LTS.
-2. Use menu: `VinsMono -> Create Default Capture Scene`.
-3. Open `Assets/Scenes/CaptureScene.unity`.
+2. Use menu: `VinsMono -> Create Default Capture Scene` (optional).
+3. If scene is empty, runtime bootstrap will auto-create Chinese UI controls on launch.
 4. For editor simulation, keep `Use Editor Mock Bridge` enabled on `CaptureSessionController`.
 5. For iOS device, disable mock bridge and build for iOS.
+
+## Display / Language Defaults
+- Forced portrait mode at runtime.
+- UI labels are Chinese (状态、图像帧数、加速度样本、角速度样本、开始采集、停止采集).
 
 ## iOS Permissions
 Add camera and motion usage descriptions in iOS Player settings / generated Info.plist:

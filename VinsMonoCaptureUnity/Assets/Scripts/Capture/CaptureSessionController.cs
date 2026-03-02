@@ -81,7 +81,7 @@ namespace VinsMonoCapture.Capture
             cameraBridge.StartCameraCapture();
             imuBridge.StartImuCapture(imuUpdateIntervalSeconds);
             isCapturing = true;
-            EmitStatus("Capturing");
+            EmitStatus("采集中");
         }
 
         public void StopCapture()
@@ -105,7 +105,7 @@ namespace VinsMonoCapture.Capture
 
             fileExportService.ExportSession(currentSessionPaths, metadata, frameRecords, accelerometerSamples, gyroscopeSamples, intrinsicsPath, string.Join("\n", inMemoryLogs));
             Log("Capture stopped and session exported");
-            EmitStatus("Stopped");
+            EmitStatus("已停止");
         }
 
         private void OnFrameReceived(CameraFramePayload payload)
@@ -124,7 +124,7 @@ namespace VinsMonoCapture.Capture
                 PixelFormat = payload.PixelFormat
             });
 
-            EmitStatus("Capturing");
+            EmitStatus("采集中");
         }
 
         private void OnIntrinsicsReceived(string intrinsicsJson)
@@ -143,7 +143,7 @@ namespace VinsMonoCapture.Capture
                 Z = payload.Z,
                 Unit = "m/s^2"
             });
-            EmitStatus("Capturing");
+            EmitStatus("采集中");
         }
 
         private void OnGyroscopeReceived(ImuPayload payload)
@@ -156,7 +156,7 @@ namespace VinsMonoCapture.Capture
                 Z = payload.Z,
                 Unit = "rad/s"
             });
-            EmitStatus("Capturing");
+            EmitStatus("采集中");
         }
 
         private void EmitStatus(string message)

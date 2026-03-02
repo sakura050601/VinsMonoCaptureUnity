@@ -3,6 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
+using UnityEditor.iOS.Xcode.Extensions;
 
 namespace VinsMonoCapture.Editor.iOS
 {
@@ -30,6 +31,16 @@ namespace VinsMonoCapture.Editor.iOS
             project.SetBuildProperty(frameworkTargetGuid, "ENABLE_BITCODE", "NO");
 
             project.WriteToFile(projectPath);
+
+            var plistPath = Path.Combine(buildPath, "Info.plist");
+            var plist = new PlistDocument();
+            plist.ReadFromFile(plistPath);
+            var root = plist.root;
+
+            root.SetString("NSCameraUsageDescription", "需要相机权限用于采集图像帧与时间戳");
+            root.SetString("NSMotionUsageDescription", "需要运动传感器权限用于采集加速度与角速度");
+
+            plist.WriteToFile(plistPath);
         }
 
         private static void AddRequiredFrameworks(PBXProject project, string targetGuid)

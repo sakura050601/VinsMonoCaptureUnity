@@ -116,12 +116,29 @@ static CMMotionManager *motionManager = nil;
 
 void VinsStartCameraCapture(VinsCameraFrameCallback frameCallback, VinsStringCallback intrinsicsCallback) {
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (authStatus == AVAuthorizationStatusDenied || authStatus == AVAuthorizationStatusRestricted) {
+
+    void (^startCapture)(void) = ^{
+        cameraService = [[VinsCameraCaptureService alloc] initWithFrameCallback:frameCallback intrinsicsCallback:intrinsicsCallback];
+        [cameraService start];
+    };
+
+    if (authStatus == AVAuthorizationStatusAuthorized) {
+        startCapture();
         return;
     }
 
-    cameraService = [[VinsCameraCaptureService alloc] initWithFrameCallback:frameCallback intrinsicsCallback:intrinsicsCallback];
-    [cameraService start];
+    if (authStatus == AVAuthorizationStatusNotDetermined) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            if (granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    startCapture();
+                });
+            }
+        }];
+        return;
+    }
+
+    // Denied or restricted.
 }
 
 void VinsStopCameraCapture(void) {

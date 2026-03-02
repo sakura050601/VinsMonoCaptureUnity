@@ -34,11 +34,10 @@ This creates one sample exported session under `SampleOutput/`.
 
 ## Unity Setup Notes
 1. Open project in Unity 2022.3 LTS.
-2. Create a scene with:
-   - `CaptureSessionController` component on a GameObject.
-   - `CaptureStatusView` wired to UI (`TMP_InputField`, buttons, labels).
-3. For editor simulation, keep `Use Editor Mock Bridge` enabled.
-4. For iOS device, disable mock bridge and build for iOS.
+2. Use menu: `VinsMono -> Create Default Capture Scene`.
+3. Open `Assets/Scenes/CaptureScene.unity`.
+4. For editor simulation, keep `Use Editor Mock Bridge` enabled on `CaptureSessionController`.
+5. For iOS device, disable mock bridge and build for iOS.
 
 ## iOS Permissions
 Add camera and motion usage descriptions in iOS Player settings / generated Info.plist:

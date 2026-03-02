@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VinsMonoCapture.Capture;
@@ -8,13 +7,13 @@ namespace VinsMonoCapture.UI
     public class CaptureStatusView : MonoBehaviour
     {
         [SerializeField] private CaptureSessionController captureSessionController = null!;
-        [SerializeField] private TMP_InputField sessionNameInputField = null!;
+        [SerializeField] private InputField sessionNameInputField = null!;
         [SerializeField] private Button startCaptureButton = null!;
         [SerializeField] private Button stopCaptureButton = null!;
-        [SerializeField] private TMP_Text statusText = null!;
-        [SerializeField] private TMP_Text frameCounterText = null!;
-        [SerializeField] private TMP_Text accelerometerCounterText = null!;
-        [SerializeField] private TMP_Text gyroscopeCounterText = null!;
+        [SerializeField] private Text statusText = null!;
+        [SerializeField] private Text frameCounterText = null!;
+        [SerializeField] private Text accelerometerCounterText = null!;
+        [SerializeField] private Text gyroscopeCounterText = null!;
 
         private void Awake()
         {

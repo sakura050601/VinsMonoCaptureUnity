@@ -28,7 +28,17 @@
     self.captureSession = [[AVCaptureSession alloc] init];
     self.captureSession.sessionPreset = AVCaptureSessionPreset1280x720;
 
-    AVCaptureDevice *camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDevice *camera = nil;
+    if (@available(iOS 10.0, *)) {
+        AVCaptureDeviceDiscoverySession *discovery = [AVCaptureDeviceDiscoverySession
+            discoverySessionWithDeviceTypes:@[AVCaptureDeviceTypeBuiltInWideAngleCamera]
+            mediaType:AVMediaTypeVideo
+            position:AVCaptureDevicePositionBack];
+        camera = discovery.devices.firstObject;
+    }
+    if (!camera) {
+        camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    }
     if (!camera) { return; }
 
     NSError *error = nil;

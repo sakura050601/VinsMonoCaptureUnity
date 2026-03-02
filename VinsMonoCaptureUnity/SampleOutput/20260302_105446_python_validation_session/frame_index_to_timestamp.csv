@@ -1,0 +1,11 @@
+frame_index,file_name,timestamp_seconds,image_width,image_height,pixel_format
+0,frame_000000.jpg,1000.0,1280,720,jpeg
+1,frame_000001.jpg,1000.033333,1280,720,jpeg
+2,frame_000002.jpg,1000.066666,1280,720,jpeg
+3,frame_000003.jpg,1000.099999,1280,720,jpeg
+4,frame_000004.jpg,1000.133332,1280,720,jpeg
+5,frame_000005.jpg,1000.166665,1280,720,jpeg
+6,frame_000006.jpg,1000.199998,1280,720,jpeg
+7,frame_000007.jpg,1000.233331,1280,720,jpeg
+8,frame_000008.jpg,1000.266664,1280,720,jpeg
+9,frame_000009.jpg,1000.299997,1280,720,jpeg

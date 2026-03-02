@@ -44,6 +44,18 @@ Add camera and motion usage descriptions in iOS Player settings / generated Info
 - `NSCameraUsageDescription`
 - `NSMotionUsageDescription`
 
+## iOS Auto-Linking (Frameworks)
+This project includes `Assets/Editor/iOS/IosFrameworkAutoLinker.cs`.
+When you build for iOS from Unity, it automatically links required frameworks in Xcode project:
+- AVFoundation
+- CoreMotion
+- CoreMedia
+- CoreVideo
+- CoreImage
+- ImageIO
+- UIKit
+- Foundation
+
 ## Environment Limitation Disclosure
 - Unity Editor and real iOS hardware execution were **not available in this environment**.
 - Therefore, real on-device AVFoundation frame callbacks and CoreMotion runtime verification are not claimed here.

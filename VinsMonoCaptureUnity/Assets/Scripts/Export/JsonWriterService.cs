@@ -1,18 +1,13 @@
 using System.IO;
-using System.Text.Json;
+using UnityEngine;
 
 namespace VinsMonoCapture.Export
 {
     public class JsonWriterService
     {
-        private static readonly JsonSerializerOptions SerializerOptions = new()
-        {
-            WriteIndented = true
-        };
-
         public void WriteJson<T>(string filePath, T model)
         {
-            var jsonContent = JsonSerializer.Serialize(model, SerializerOptions);
+            var jsonContent = JsonUtility.ToJson(model, true);
             File.WriteAllText(filePath, jsonContent);
         }
     }

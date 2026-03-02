@@ -37,10 +37,12 @@ namespace VinsMonoCapture.UI
             scaler.referenceResolution = new Vector2(1170, 2532);
 
             var sessionInput = CreateInputField(canvasGo.transform, "会话名称", new Vector2(0, 500), "请输入会话名");
-            var startButton = CreateButton(canvasGo.transform, "开始采集", new Vector2(-180, 420), "开始采集");
-            var stopButton = CreateButton(canvasGo.transform, "停止采集", new Vector2(180, 420), "停止采集");
+            var startButton = CreateButton(canvasGo.transform, "开始采集", new Vector2(-180, 420), "开始采集", new Color(0.12f, 0.45f, 0.85f, 1f));
+            var stopButton = CreateButton(canvasGo.transform, "停止采集", new Vector2(180, 420), "停止采集", new Color(0.75f, 0.18f, 0.18f, 1f));
 
             var statusText = CreateText(canvasGo.transform, new Vector2(0, 320), "状态：待机");
+             var hintText = CreateText(canvasGo.transform, new Vector2(0, 80), "提示：点击“开始采集”后会申请相机权限并开始多帧采集");
+            hintText.fontSize = 24;
             var frameText = CreateText(canvasGo.transform, new Vector2(0, 260), "图像帧数：0");
             var accelText = CreateText(canvasGo.transform, new Vector2(0, 200), "加速度样本：0");
             var gyroText = CreateText(canvasGo.transform, new Vector2(0, 140), "角速度样本：0");
@@ -57,6 +59,9 @@ namespace VinsMonoCapture.UI
             var rect = root.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(700, 80);
             rect.anchoredPosition = position;
+
+            var rootImage = root.GetComponent<Image>();
+            rootImage.color = new Color(0.16f, 0.16f, 0.16f, 0.95f);
 
             var text = CreateText(root.transform, Vector2.zero, "");
             text.alignment = TextAnchor.MiddleLeft;
@@ -75,15 +80,20 @@ namespace VinsMonoCapture.UI
             return inputField;
         }
 
-        private static Button CreateButton(Transform parent, string name, Vector2 position, string label)
+        private static Button CreateButton(Transform parent, string name, Vector2 position, string label, Color backgroundColor)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
             go.transform.SetParent(parent, false);
             var rect = go.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(300, 90);
             rect.anchoredPosition = position;
+
+            var image = go.GetComponent<Image>();
+            image.color = backgroundColor;
+
             var text = CreateText(go.transform, Vector2.zero, label);
             text.alignment = TextAnchor.MiddleCenter;
+            text.color = Color.white;
             return go.GetComponent<Button>();
         }
 
@@ -96,11 +106,24 @@ namespace VinsMonoCapture.UI
             rect.anchoredPosition = position;
 
             var text = go.GetComponent<Text>();
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            text.font = GetPreferredFont();
             text.fontSize = 32;
             text.color = Color.white;
             text.text = content;
             return text;
+        }
+
+        private static Font GetPreferredFont()
+        {
+            var font = Font.CreateDynamicFontFromOSFont(new[]
+            {
+                "PingFang SC",
+                "Heiti SC",
+                "Arial Unicode MS",
+                "Arial"
+            }, 32);
+
+            return font != null ? font : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         }
     }
 }
